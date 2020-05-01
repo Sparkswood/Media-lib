@@ -1,0 +1,31 @@
+
+  <ion-menu contentId="content" side="start">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Media Library</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item 
+              *ngFor="let page of pages"
+              [routerLink]="page.url"
+              routerDirection="root"
+              [class.active-item]="selectedPath === page.url">
+              <ion-label>{{page.title}}</ion-label>
+              <ion-icon [name]='page.icon'></ion-icon>
+          </ion-item>
+          <ion-item (click)="signOut()" button routerDirection="root">
+            <ion-label>Logout</ion-label>
+            <ion-icon name="log-out-outline"></ion-icon>
+          </ion-item>
+        </ion-menu-toggle>
+
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="content" main></ion-router-outlet>
+

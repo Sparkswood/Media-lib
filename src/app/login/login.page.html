@@ -1,0 +1,54 @@
+<ion-content>
+
+  <ion-card>
+    <ion-card-header color="primary">
+        Authentication
+    </ion-card-header>
+    <ion-card-content>
+        <form [formGroup]='loginForm'>
+            <ion-list lines="full" class="ion-no-margin ion-no-padding">
+              <ion-item>
+                <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
+                <ion-input required type="text" formControlName="email"></ion-input>
+              </ion-item>
+              <div class="error-messages">
+                <ng-container *ngFor="let error of errorMessages.email">
+                  <div class="error-message" *ngIf="loginForm.get('email').hasError(error.type) && (loginForm.get('email').dirty || loginForm.get('email').touched)">
+                    {{ error.message }}
+                  </div>
+                </ng-container>
+              </div>
+    
+              <ion-item>
+                <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
+                <ion-input required type="password" formControlName="password"></ion-input>
+              </ion-item>
+              <div class="error-messages">
+                <ng-container *ngFor="let error of errorMessages.password">
+                  <div class="error-message" *ngIf="loginForm.get('password').hasError(error.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+                    {{ error.message }}
+                  </div>
+                </ng-container>
+              </div>
+        </ion-list>
+
+        <ion-button expand="full" type="submit" [disabled]="!loginForm.valid" (click)="authorize()">
+          Sign in
+        </ion-button>
+
+        <ion-item-divider></ion-item-divider>
+
+        <ion-button expand="full" (click)="register()">
+          <ion-icon class="ion-margin-end" name="mail-outline"></ion-icon>
+          Sign up with email
+        </ion-button>
+        <ion-button expand="full" (click)="authorizeGoogle()">
+          <ion-icon class="ion-margin-end" name="logo-google"></ion-icon>
+          Sign in with Google
+        </ion-button>
+        
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

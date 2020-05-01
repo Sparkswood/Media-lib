@@ -1,0 +1,7 @@
+{
+  "name": "medialib",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
