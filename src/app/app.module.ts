@@ -13,6 +13,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ApisearchPageModule } from './apisearch/apisearch.module';
+import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -25,7 +27,9 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ApisearchPageModule,
+    HttpClientModule
   ],
   providers: [
     StatusBar,

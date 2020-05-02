@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'menu',
     loadChildren: () => import('./tabs-menu/tabs-menu.module').then( m => m.TabsMenuPageModule)
+  },  {
+    path: 'apisearch',
+    loadChildren: () => import('./apisearch/apisearch.module').then( m => m.ApisearchPageModule)
   }
+
 
 ];
 

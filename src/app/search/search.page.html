@@ -1,12 +1,29 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Search</ion-title>
+    <ion-title>Manage library</ion-title>
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="searchItem()">
+        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-segment (ionChange)="segmentChanged($event)" [value]="itemType">
+    <ion-segment-button value="movie">
+      <ion-icon name="videocam-outline"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="series">
+      <ion-icon name="albums-outline"></ion-icon>
+    </ion-segment-button>
+    <ion-segment-button value="game">
+      <ion-icon name="game-controller-outline"></ion-icon>
+    </ion-segment-button>
+  </ion-segment>
 
 </ion-content>

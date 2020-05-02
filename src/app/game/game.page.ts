@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -15,8 +15,13 @@ export class GamePage implements OnInit {
   ngOnInit() {
   }
 
-  goToSearchPage() {
-    this.router.navigate(['/menu/search']);
+  addNew() {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        item: 'game'
+      }
+    };
+    this.router.navigate(['/menu/search'], navigationExtras);
   }
 
 }

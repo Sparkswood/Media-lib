@@ -26,9 +26,9 @@ export class TabsMenuPage implements OnInit {
       icon: 'game-controller-outline'
     },
     {
-      title: 'Search',
+      title: 'Manage library',
       url: '/menu/search',
-      icon: 'search-outline'
+      icon: 'library-outline'
     },
   ]
 
@@ -39,7 +39,9 @@ export class TabsMenuPage implements OnInit {
     private authService: AuthenticationService
   ) {
     this.router.events.subscribe( (event: RouterEvent) => {
-      this.selectedPath = event.url;
+      if (event.url) {
+        this.selectedPath = event.url.split('?')[0];
+      }
     });
   }
 
