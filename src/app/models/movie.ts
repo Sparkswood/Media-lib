@@ -1,4 +1,4 @@
-export interface Serie {
+export interface Movie {
     Title: string;
     Year: string;
     Rated: string;
@@ -19,7 +19,10 @@ export interface Serie {
     imdbVotes: string;
     imdbID: string;
     Type: string;
-    totalSeasons: string;
+    DVD: string;
+    BoxOffice: string;
+    Production: string;
+    Website: string;
     Response: string;
 }
 

@@ -18,6 +18,10 @@ export class SearchApiService {
     return this.http.get(`${this.mainUrl}type=${this.itemType}&apikey=${this.apiKey}&s=${itemTitle}`);
   }
 
+  getItemDetails(itemId: string) {
+    return this.http.get(`${this.mainUrl}type=${this.itemType}&apikey=${this.apiKey}&i=${itemId}`);
+  }
+
   setItemType(itemType: string) {
     this.itemType = itemType;
   }

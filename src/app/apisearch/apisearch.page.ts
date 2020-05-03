@@ -41,6 +41,12 @@ export class ApisearchPage {
     }
   }
 
+  fillAddForm(item) {
+    this.searchapiService.getItemDetails(item.imdbID).subscribe( response => {
+      this.modalController.dismiss(response);
+    });
+  }
+
   close() {
     this.modalController.dismiss();
   }

@@ -29,14 +29,17 @@
     
     <ion-list *ngIf="itemsList !== undefined && itemsList.length !== 0 && itemsList !== null">
       <ion-item lines="none" *ngFor="let item of itemsList">
-        <ion-card>
+        <ion-card class="ion-activatable" (click)="fillAddForm(item)">
           <ion-card-header class="ion-text-center">
             <ion-label>
               {{item.Title}}
               {{item.Type}}
+              {{item.Year}}
+              <!-- poster -->
               <ion-icon slot="icon-only" name="happy-outline"></ion-icon>
             </ion-label>
           </ion-card-header>
+          <ion-ripple-effect></ion-ripple-effect>
         </ion-card>
       </ion-item>
     </ion-list>

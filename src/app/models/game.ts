@@ -1,4 +1,4 @@
-export interface RootObject {
+export interface Game {
     Title: string;
     Year: string;
     Rated: string;

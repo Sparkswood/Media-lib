@@ -26,4 +26,29 @@
     </ion-segment-button>
   </ion-segment>
 
+        <!-- <form [formGroup]='loginForm'> -->
+            <ion-list lines="full" class="ion-no-margin ion-no-padding">
+              <ion-item>
+                <ion-label position="stacked">Title</ion-label>
+                <ion-input required></ion-input>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label position="stacked">Poster</ion-label>
+                <ion-input required></ion-input>
+              </ion-item>
+    
+              <ion-item>
+                <ion-label position="stacked">Year</ion-label>
+                <ion-input required></ion-input>
+              </ion-item>
+              
+        </ion-list>
+
+        <ion-button expand="full" (click)="addToFirebase()">
+          Add {{itemType}}
+        </ion-button>
+        
+      <!-- </form> -->
+
 </ion-content>
