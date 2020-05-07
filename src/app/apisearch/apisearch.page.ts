@@ -13,6 +13,21 @@ export class ApisearchPage {
   itemTitle = '';
   itemsList = [];
 
+  types = [
+    {
+      type: 'movie',
+      icon: 'videocam-outline'
+    },
+    {
+      type: 'series',
+      icon: 'albums-outline'
+    },
+    {
+      type: 'game',
+      icon: 'game-controller-outline'
+    }
+  ]
+
   constructor(
     private modalController: ModalController,
     private toastController: ToastController,
@@ -34,6 +49,7 @@ export class ApisearchPage {
           response.Error === 'Movie not found!'? this.presentToast('Item not found.', 1000) : this.presentToast(response.Error, 1000);
         } else {
           this.itemsList = response.Search;
+          console.log(response.Search);
         }
       });
     } else {

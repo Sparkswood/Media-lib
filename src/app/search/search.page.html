@@ -34,15 +34,56 @@
               </ion-item>
               
               <ion-item>
-                <ion-label position="stacked">Poster</ion-label>
-                <ion-input required></ion-input>
+                <ion-label position="stacked">Poster link</ion-label>
+                <ion-input type="url" required></ion-input>
               </ion-item>
-    
+  
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="stacked">Director</ion-label>
+                    <ion-input required></ion-input>
+                  </ion-item>
+                </ion-col>
+
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="stacked">Year</ion-label>
+                    <ion-datetime displayFormat="YYYY" min="1850"></ion-datetime>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
               <ion-item>
-                <ion-label position="stacked">Year</ion-label>
-                <ion-input required></ion-input>
+                <ion-label position="stacked">Plot</ion-label>
+                <ion-textarea></ion-textarea>
               </ion-item>
               
+              <ion-item>
+                <ion-label position="stacked">Rating</ion-label>
+                <ion-range min="0" max="100" pin>
+                  <ion-icon size="small" slot="start" name="star-outline"></ion-icon>
+                  <ion-icon size="large" slot="end" name="star-outline"></ion-icon>
+                </ion-range>
+              </ion-item>
+
+              <ion-item>
+                <ion-label position="stacked">Minutes runtime</ion-label>
+                <ion-range min="5" max="300" pin>
+                  <ion-icon size="small" slot="start" name="alarm-outline"></ion-icon>
+                  <ion-icon size="large" slot="end" name="alarm-outline"></ion-icon>
+                </ion-range>
+              </ion-item>
+
+              <div style="display: inline-block" *ngFor="let genre of genres">
+                <ion-chip *ngIf="genre.isChecked" color="primary" (click)="genre.isChecked = !genre.isChecked">
+                  <ion-label>{{genre.name}}</ion-label>
+                </ion-chip>
+                <ion-chip *ngIf="!genre.isChecked" (click)="genre.isChecked = !genre.isChecked">
+                  <ion-label>{{genre.name}}</ion-label>
+                </ion-chip>
+              </div>
+
         </ion-list>
 
         <ion-button expand="full" (click)="addToFirebase()">
