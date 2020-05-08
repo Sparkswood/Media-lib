@@ -32,7 +32,7 @@ export class MovieFirebaseService {
     return this.movieCollection.doc<Movie>(id).valueChanges().pipe(
       take(1),
       map(movie => {
-        movie.imdbID = id;
+        movie.id = id;
         return movie
       })
     );

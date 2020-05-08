@@ -32,7 +32,7 @@ export class SeriesFirebaseService {
     return this.serieCollection.doc<Series>(id).valueChanges().pipe(
       take(1),
       map(serie => {
-        serie.imdbID = id;
+        serie.id = id;
         return serie
       })
     );

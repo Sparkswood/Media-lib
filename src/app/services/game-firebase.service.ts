@@ -32,7 +32,7 @@ export class GameFirebaseService {
     return this.gameCollection.doc<Game>(id).valueChanges().pipe(
       take(1),
       map(game => {
-        game.imdbID = id;
+        game.id = id;
         return game
       })
     );
