@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument,
 import { map, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Movie } from '../models/movie';
+import { AuthenticationService } from '../shared/authentication.service';
  
 @Injectable({
   providedIn: 'root'
@@ -11,14 +12,19 @@ export class MovieFirebaseService {
   private movies: Observable<Movie[]>;
   private movieCollection: AngularFirestoreCollection<Movie>;
  
-  constructor(private afs: AngularFirestore) {
+  constructor(
+    private afs: AngularFirestore,
+    private auth: AuthenticationService
+  ) {
     this.movieCollection = this.afs.collection<Movie>('movie');
     this.movies = this.movieCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
           const id = a.payload.doc.id;
-          return { id, ...data };
+          let thisID = data.UserUID.toString();
+          let currentUserID = this.auth.getUserUID.toString();
+          return thisID === currentUserID ? { id, ...data } : null;
         });
       })
     );

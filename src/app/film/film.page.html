@@ -4,7 +4,7 @@
     <ion-buttons slot="start">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" >
       <ion-button (click)="addNew()">
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
@@ -14,4 +14,50 @@
 
 <ion-content>
 
+  <div *ngIf="itemsList">
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let item of itemsList">
+          <ion-card>
+            <ion-row>
+              <ion-col>
+                <div class="poster">
+                  <ion-img *ngIf="item.Poster != 'N/A'" [src]="item.Poster"></ion-img>
+                  <ion-icon class="no-image-icon" *ngIf="item.Poster == 'N/A'" name="information-circle-outline"></ion-icon>
+                </div>
+              </ion-col>
+              <ion-col>
+                <ion-label class="stat-icons">
+                  <ion-icon slot="icon-only" name="checkmark-done-outline"></ion-icon>
+                  <ion-icon slot="icon-only" name="bookmark-outline"></ion-icon>
+                  <ion-icon name="create-outline"></ion-icon>
+                  <ion-icon name="trash-outline"></ion-icon>
+                </ion-label>
+                <ion-label class="title">{{item.Title}}</ion-label>
+                <ion-label class="year">Year: <b>{{item.Year}}</b></ion-label>
+                <ion-label class="plot" *ngIf="item.Plot != 'Unknown'">{{item.Plot}}</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="empty-page-container" *ngIf="itemsList.length == 0">
+    <ion-row>
+      <ion-col>
+        <ion-label color="primary">
+          Fill your library first.
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="addNew()">
+          Add movie
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-content>

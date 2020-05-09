@@ -8,6 +8,7 @@ export interface Game {
     Poster: string;
     Ratings: Rating[];
     Type: string;
+    UserUID: string;
 }
 
 export interface Rating {

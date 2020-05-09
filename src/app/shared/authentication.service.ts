@@ -11,7 +11,7 @@ import { ToastController } from '@ionic/angular';
 })
 
 export class AuthenticationService {
-  userData: any;
+  private userData: User;
 
   constructor(
     public afStore: AngularFirestore,
@@ -32,7 +32,13 @@ export class AuthenticationService {
     })
   }
 
-  
+  get getUserUID() {
+    return this.userData.uid;
+  }
+
+  userUID() {
+    return this.userData.uid;
+  }
 
   // Login in with email/password
   SignIn(email, password) {

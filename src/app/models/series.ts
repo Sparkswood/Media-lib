@@ -9,6 +9,7 @@ export interface Series {
     Ratings: Rating[];
     totalSeasons: string;
     Type: string;
+    UserUID: string;
 }
 
 export interface Rating {

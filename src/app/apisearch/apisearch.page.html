@@ -18,34 +18,42 @@
     </ion-buttons>
   </ion-item>
 
-    <ion-card *ngIf="itemsList === undefined || itemsList.length === 0 || itemsList === null">
-      <ion-card-header class="ion-text-center">
-        <ion-label>
-          No searches. Type new title 
-          <ion-icon slot="icon-only" name="happy-outline"></ion-icon>
+  <div class="empty-page-container" *ngIf="itemsList === undefined || itemsList.length === 0 || itemsList === null">
+    <ion-row>
+      <ion-col>
+        <ion-icon class="no-searches-icon" name="arrow-up-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label color="primary">
+          No searches. Type new title.
         </ion-label>
-      </ion-card-header>
-    </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
     
-    <div *ngIf="itemsList !== undefined && itemsList.length !== 0 && itemsList !== null">
-      <ion-grid>
-        <ion-row>
-          <ion-col *ngFor="let item of itemsList">
-            <div class="image-container ion-activatable" (click)="fillAddForm(item)">
-                <ion-img  *ngIf="item.Poster != 'N/A'" [src]="item.Poster"></ion-img>
-              <ion-icon class="no-image-icon" *ngIf="item.Poster == 'N/A'" name="information-circle-outline"></ion-icon>
-                <div *ngFor="let type of types">
-                  <ion-item *ngIf="item.Type === type.type">
-                    <ion-icon  item-start class="type-icon" [name]="type.icon"></ion-icon>
-                    <ion-label class="title">{{item.Year}} <b>{{item.Title}}</b></ion-label>
-                  </ion-item>
-                </div>
-                <ion-ripple-effect></ion-ripple-effect>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
+  <div *ngIf="itemsList !== undefined && itemsList.length !== 0 && itemsList !== null">
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let item of itemsList">
+          <div class="image-container ion-activatable" (click)="fillAddForm(item)">
+              <ion-img  *ngIf="item.Poster != 'N/A'" [src]="item.Poster"></ion-img>
+            <ion-icon class="no-image-icon" *ngIf="item.Poster == 'N/A'" name="information-circle-outline"></ion-icon>
+              <div *ngFor="let type of types">
+                <ion-item *ngIf="item.Type === type.type">
+                  <ion-icon  item-start class="type-icon" [name]="type.icon"></ion-icon>
+                  <ion-label class="title">{{item.Year}} <b>{{item.Title}}</b></ion-label>
+                </ion-item>
+              </div>
+              <ion-ripple-effect></ion-ripple-effect>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+    
     
 
 

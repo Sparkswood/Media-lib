@@ -1,0 +1,49 @@
+ion-img {
+    width: 150px;
+}
+
+ion-card {
+    margin: 0 auto;
+    width: 300px;
+    //margin: auto;
+}
+
+.poster {
+    display:flex;
+    height: 100%;
+}
+
+.no-image-icon {
+    font-size: 150px;
+}
+
+.title {
+    display: block;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
+}
+
+.year {
+    display: block;
+}
+
+.plot {
+    padding-top: 5px;
+    display: inline-block;
+    overflow: hidden;
+    width: 130px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.stat-icons {
+    display: block;
+    text-align: right;
+
+    ion-icon {
+        font-size: 20px;
+        padding: 0 5px;
+    }
+}

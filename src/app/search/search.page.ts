@@ -10,6 +10,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Movie } from '../models/movie';
 import { Series } from '../models/series';
 import { Game } from '../models/game';
+import { AuthenticationService } from '../shared/authentication.service';
 
 @Component({
   selector: 'app-search',
@@ -129,7 +130,8 @@ export class SearchPage implements OnInit {
     private seriesFirebaseService: SeriesFirebaseService,
     private gameFirebaseService: GameFirebaseService,
     private formBuilder: FormBuilder,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private authenticationService: AuthenticationService
   ) { 
     this.activatedRoute.queryParams.subscribe( params => {
       if (params.item) {
@@ -206,9 +208,8 @@ export class SearchPage implements OnInit {
       this.searchApiService.setItemType(this.itemType);
       modalElement.present();
       modalElement.onDidDismiss().then( response => {
-        if (response) {
+        if (response.data !== undefined) {
           this.selectedItem = response.data;
-          console.log(this.selectedItem);
           this.fillForm();
         }
       })
@@ -256,37 +257,6 @@ export class SearchPage implements OnInit {
     }
   }
 
-  fillObject() {
-    this.selectedItem.Title = this.addForm.get('title').value;
-    this.selectedItem.Poster = this.addForm.get('poster').value;
-    this.selectedItem.Plot = this.addForm.get('plot').value;
-    this.selectedItem.Ratings[0].Value = this.addForm.get('rating').value ? this.addForm.get('rating').value : '';
-
-    this.selectedItem.Genres = '';
-    this.genres.forEach( genre => {
-      if (genre.isChecked) {
-        this.selectedItem.Genres.concat(`${genre.name}, `);
-      }
-    });
-
-    switch (this.itemType) {
-      case 'movie':
-        this.selectedItem.Runtime = this.addForm.get('runtime').value ? this.addForm.get('runtime').value : '';
-        this.selectedItem.Director = this.addForm.get('director').value;
-        this.selectedItem.Year = this.addForm.get('year').value.substring(0, 4);
-        break;
-      case 'series':
-        this.selectedItem.Runtime = this.addForm.get('runtime').value ? this.addForm.get('runtime').value : '';
-        this.selectedItem.totalSeasons = this.totalSeasons;
-        this.selectedItem.Year = `${this.addForm.get('year').value.substring(0, 4)}-${this.addForm.get('toyear').value.substring(0, 4)}`;
-        break;
-      case 'game':
-        this.selectedItem.Director = this.addForm.get('director').value;
-        this.selectedItem.Year = this.addForm.get('year').value.substring(0, 4);
-        break;
-    }
-  }
-
   createNewToAdd() {
     let genres = '';
     this.genres.forEach( genre => {
@@ -298,6 +268,7 @@ export class SearchPage implements OnInit {
       case 'movie':
         let movie: Movie = {
           id: '',
+          UserUID: this.authenticationService.userUID(),
           Title: this.addForm.get('title').value,
           Plot: this.addForm.get('plot').value,
           Poster: this.addForm.get('poster').value,
@@ -318,6 +289,7 @@ export class SearchPage implements OnInit {
       case 'series':
         let series: Series = {
           id: '',
+          UserUID: this.authenticationService.userUID(),
           Title: this.addForm.get('title').value,
           Plot: this.addForm.get('plot').value,
           Poster: this.addForm.get('poster').value,
@@ -338,6 +310,7 @@ export class SearchPage implements OnInit {
       case 'game':
         let game: Game = {
           id: '',
+          UserUID: this.authenticationService.userUID(),
           Title: this.addForm.get('title').value,
           Plot: this.addForm.get('plot').value,
           Poster: this.addForm.get('poster').value,
@@ -358,11 +331,7 @@ export class SearchPage implements OnInit {
   }
 
   addToFirebase() {
-    if (this.selectedItem !== undefined && this.selectedItem !== null && this.selectedItem !== '') {
-      this.fillObject();
-    } else {
-      this.createNewToAdd();
-    }
+    this.createNewToAdd();
     switch (this.itemType) {
       case 'movie':
         this.movieFirebaseService.addMovie(this.selectedItem).then( response => {
