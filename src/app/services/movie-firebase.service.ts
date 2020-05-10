@@ -34,23 +34,17 @@ export class MovieFirebaseService {
     return this.movies;
   }
  
-  getMovie(id: string): Observable<Movie> {
-    return this.movieCollection.doc<Movie>(id).valueChanges().pipe(
-      take(1),
-      map(movie => {
-        movie.id = id;
-        return movie
-      })
-    );
-  }
- 
   addMovie(movie: Movie): Promise<DocumentReference> {
     return this.movieCollection.add(movie);
   }
+
+  updateState(movie: Movie, id): Promise<void> {
+    return this.movieCollection.doc(id).update({ fav: movie.fav, seen: movie.seen });
+  }
  
-  // updateMovie(movie: Movie): Promise<void> {
-  //   return this.movieCollection.doc(movie.imdbID).update({ name: movie.name, notes: movie.notes });
-  // }
+  updateMovie(movie: Movie, id): Promise<void> {
+    return this.movieCollection.doc(id).update(movie);
+  }
  
   deleteMovie(id: string): Promise<void> {
     return this.movieCollection.doc(id).delete();

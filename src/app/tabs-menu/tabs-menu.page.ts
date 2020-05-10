@@ -11,13 +11,13 @@ export class TabsMenuPage implements OnInit {
 
   pages = [
     {
-      title: 'Films',
-      url: '/menu/film',
+      title: 'Movies',
+      url: '/menu/movie',
       icon: 'videocam-outline'
     },
     {
       title: 'Series',
-      url: '/menu/serial',
+      url: '/menu/series',
       icon: 'albums-outline'
     },
     {

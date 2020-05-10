@@ -1,5 +1,4 @@
 export interface Game {
-    id: string;
     Title: string;
     Year: string;
     Genre: string;
@@ -9,6 +8,8 @@ export interface Game {
     Ratings: Rating[];
     Type: string;
     UserUID: string;
+    fav: boolean;
+    seen: boolean;
 }
 
 export interface Rating {

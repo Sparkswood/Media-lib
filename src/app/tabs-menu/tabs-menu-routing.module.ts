@@ -9,11 +9,11 @@ const routes: Routes = [
     component: TabsMenuPage,
     children: [
       {
-        path: 'film',
+        path: 'movie',
         loadChildren: '../film/film.module#FilmPageModule'
        },
       {
-        path: 'serial',
+        path: 'series',
         loadChildren: '../serial/serial.module#SerialPageModule'
       },
       {

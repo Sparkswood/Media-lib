@@ -34,23 +34,17 @@ export class GameFirebaseService {
     return this.games;
   }
  
-  getGame(id: string): Observable<Game> {
-    return this.gameCollection.doc<Game>(id).valueChanges().pipe(
-      take(1),
-      map(game => {
-        game.id = id;
-        return game
-      })
-    );
-  }
- 
   addGame(game: Game): Promise<DocumentReference> {
     return this.gameCollection.add(game);
   }
  
-  // updateGame(game: Game): Promise<void> {
-  //   return this.gameCollection.doc(game.imdbID).update({ name: game.name, notes: game.notes });
-  // }
+  updateState(game: Game, id): Promise<void> {
+    return this.gameCollection.doc(id).update({ fav: game.fav, seen: game.seen });
+  }
+ 
+  updateGame(game: Game, id): Promise<void> {
+    return this.gameCollection.doc(id).update(game);
+  }
  
   deleteGame(id: string): Promise<void> {
     return this.gameCollection.doc(id).delete();

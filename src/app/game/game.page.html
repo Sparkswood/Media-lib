@@ -39,16 +39,16 @@
             <ion-row>
               <ion-col>
                 <div class="poster">
-                  <ion-img *ngIf="item.Poster != 'N/A'" [src]="item.Poster"></ion-img>
-                  <ion-icon class="no-image-icon" *ngIf="item.Poster == 'N/A'" name="information-circle-outline"></ion-icon>
+                  <ion-img *ngIf="item.Poster != 'N/A' && item.Poster != 'Unknown'" [src]="item.Poster"></ion-img>
+                  <ion-icon class="no-image-icon" *ngIf="item.Poster == 'N/A' || item.Poster == 'Unknown'" name="information-circle-outline"></ion-icon>
                 </div>
               </ion-col>
               <ion-col>
                 <ion-label class="stat-icons">
-                  <ion-icon slot="icon-only" name="checkmark-done-outline"></ion-icon>
-                  <ion-icon slot="icon-only" name="bookmark-outline"></ion-icon>
-                  <ion-icon name="create-outline"></ion-icon>
-                  <ion-icon name="trash-outline"></ion-icon>
+                  <ion-icon (click)="seenChange(item, item.id)" [color]="item.seen ? 'primary' : 'medium'" [name]="item.seen ? 'checkmark-done-outline' : 'checkmark-outline'"></ion-icon>
+                  <ion-icon (click)="favChange(item, item.id)" [color]="item.fav ? 'primary' : 'medium'" [name]="item.fav ? 'bookmark' : 'bookmark-outline'"></ion-icon>
+                  <ion-icon (click)="editItem(item)" name="create-outline"></ion-icon>
+                  <ion-icon (click)="deleteItem(item.id)" name="trash-outline"></ion-icon>
                 </ion-label>
                 <ion-label class="title">{{item.Title}}</ion-label>
                 <ion-label class="year">Year: <b>{{item.Year}}</b></ion-label>

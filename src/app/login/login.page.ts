@@ -73,7 +73,7 @@ export class LoginPage {
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
     this.authService.SignIn(email, password).then( () => {
-      this.router.navigate(['/menu/film']);
+      this.router.navigate(['/menu/movie']);
       this.loginForm.clearValidators()
       this.loginForm.reset()
       this.initializeForm();

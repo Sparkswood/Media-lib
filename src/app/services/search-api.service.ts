@@ -11,6 +11,8 @@ export class SearchApiService {
   private mainUrl = environment.mainUrl;
   private apiKey = environment.apiKey;
   private itemType;
+  private actionType = false;
+  private itemToEdit = null;
 
   constructor(private http: HttpClient) { }
 
@@ -24,6 +26,19 @@ export class SearchApiService {
 
   setItemType(itemType: string) {
     this.itemType = itemType;
+  }
+
+  getItemType() {
+    return this.itemType;
+  }
+
+  setActionType(actionType, item?) {
+    item ? this.itemToEdit = item : this.itemToEdit = null;
+    this.actionType = actionType;
+  }
+
+  getActionType() {
+    return [this.actionType, this.itemToEdit];
   }
 
 }

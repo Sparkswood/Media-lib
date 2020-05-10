@@ -1,20 +1,23 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Manage library</ion-title>
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" *ngIf="!actionType">
       <ion-menu-button autoHide="false"></ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" *ngIf="!actionType">
       <ion-button (click)="searchItem()">
         <ion-icon slot="icon-only" name="search-outline"></ion-icon>
       </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start" *ngIf="actionType">
+      <ion-back-button (click)="close()" defaultHref="menu/{{itemType}}" slot="start"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-segment (ionChange)="segmentChanged($event)" [value]="itemType">
+  <ion-segment *ngIf="!actionType" (ionChange)="segmentChanged($event)" [value]="itemType">
     <ion-segment-button value="movie">
       <ion-icon name="videocam-outline"></ion-icon>
     </ion-segment-button>
@@ -135,7 +138,10 @@
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end">
-    <ion-fab-button [disabled]="!addForm.valid" (click)="addToFirebase()">
+    <ion-fab-button *ngIf="!actionType" [disabled]="!addForm.valid" (click)="addToFirebase()">
+      <ion-icon name="save-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button *ngIf="actionType" [disabled]="!addForm.valid" (click)="editFirebaseItem()">
       <ion-icon name="save-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>

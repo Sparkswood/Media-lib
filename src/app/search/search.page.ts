@@ -20,6 +20,7 @@ import { AuthenticationService } from '../shared/authentication.service';
 export class SearchPage implements OnInit {
 
   itemType;
+  actionType;
   selectedItem;
 
   totalSeasons = 1;
@@ -142,6 +143,13 @@ export class SearchPage implements OnInit {
       }
     });
     this.initializeForm();
+    let temp = this.searchApiService.getActionType();
+    this.actionType = temp[0];
+    if (temp[1] !== null) {
+      this.selectedItem = temp[1];
+      this.itemType = this.selectedItem.Type;
+      this.fillForm();
+    }
   }
 
   ngOnInit() {
@@ -220,8 +228,18 @@ export class SearchPage implements OnInit {
     this.addForm.get('title').setValue(this.selectedItem.Title === 'N/A'? 'Unknown' : this.selectedItem.Title);
     this.addForm.get('poster').setValue(this.selectedItem.Poster === 'N/A'? 'Unknown' : this.selectedItem.Poster);
     this.addForm.get('plot').setValue(this.selectedItem.Plot === 'N/A'? 'Unknown' : this.selectedItem.Plot);
-    const rating = this.selectedItem.Ratings[0].Value.split('/')[0].split('.');
-    const score = rating[0] + rating[1]; 
+    let rating;
+    let score;
+    if (this.actionType) {
+      score = this.selectedItem.Ratings[0].Value;
+    } else {
+      if (this.selectedItem.Ratings.length > 0) {
+        rating = this.selectedItem.Ratings[0].Value.split('/')[0].split('.');
+        score = rating[0] + rating[1];
+      } else {
+        score = 0;
+      }
+    }
     this.addForm.get('rating').setValue(score);
 
     const specGenres = this.selectedItem.Genre.split(', ');
@@ -236,13 +254,21 @@ export class SearchPage implements OnInit {
     let runtime;
     switch (this.itemType) {
       case 'movie':
-        runtime = this.selectedItem.Runtime.split(' ')[0];
+        if (this.actionType) {
+          runtime = this.selectedItem.Runtime;
+        } else {
+          runtime = this.selectedItem.Runtime.split(' ')[0];
+        }
         this.addForm.get('runtime').setValue(runtime);
         this.addForm.get('director').setValue(this.selectedItem.Director === 'N/A'? 'Unknown' : this.selectedItem.Director);
         this.addForm.get('year').setValue(this.selectedItem.Year);
         break;
       case 'series':
-        runtime = this.selectedItem.Runtime.split(' ')[0];
+        if (this.actionType) {
+          runtime = this.selectedItem.Runtime;
+        } else {
+          runtime = this.selectedItem.Runtime.split(' ')[0];
+        }
         this.addForm.get('runtime').setValue(runtime);
         this.totalSeasons = this.selectedItem.totalSeasons;
         this.addForm.get('year').setValue(this.selectedItem.Year.substring(0, 4));
@@ -261,13 +287,12 @@ export class SearchPage implements OnInit {
     let genres = '';
     this.genres.forEach( genre => {
       if (genre.isChecked) {
-        genres.concat(`${genre.name}, `);
+        genres = `${genres}${genre.name}, `;
       }
     });
     switch (this.itemType) {
       case 'movie':
         let movie: Movie = {
-          id: '',
           UserUID: this.authenticationService.userUID(),
           Title: this.addForm.get('title').value,
           Plot: this.addForm.get('plot').value,
@@ -282,13 +307,14 @@ export class SearchPage implements OnInit {
           Runtime: this.addForm.get('runtime').value ? this.addForm.get('runtime').value : '',
           Director: this.addForm.get('director').value,
           Year: this.addForm.get('year').value.substring(0, 4),
-          Type: 'movie'
+          Type: 'movie',
+          fav: this.selectedItem.fav ? this.selectedItem.fav : false,
+          seen: this.selectedItem.seen ? this.selectedItem.seen : false
         }
         this.selectedItem = movie;
         break;
       case 'series':
         let series: Series = {
-          id: '',
           UserUID: this.authenticationService.userUID(),
           Title: this.addForm.get('title').value,
           Plot: this.addForm.get('plot').value,
@@ -303,13 +329,14 @@ export class SearchPage implements OnInit {
           Runtime: this.addForm.get('runtime').value ? this.addForm.get('runtime').value : '',
           totalSeasons: this.totalSeasons.toString(),
           Year: `${this.addForm.get('year').value.substring(0, 4)}-${this.addForm.get('toyear').value.substring(0, 4)}`,
-          Type: 'series'
+          Type: 'series',
+          fav: this.selectedItem.fav ? this.selectedItem.fav : false,
+          seen: this.selectedItem.seen ? this.selectedItem.seen : false
         }
         this.selectedItem = series;
         break;
       case 'game':
         let game: Game = {
-          id: '',
           UserUID: this.authenticationService.userUID(),
           Title: this.addForm.get('title').value,
           Plot: this.addForm.get('plot').value,
@@ -323,11 +350,38 @@ export class SearchPage implements OnInit {
           ],
           Genre: genres,
           Year: this.addForm.get('year').value.substring(0, 4),
-          Type: 'game'
+          Type: 'game',
+          fav: this.selectedItem.fav ? this.selectedItem.fav : false,
+          seen: this.selectedItem.seen ? this.selectedItem.seen : false
         }
         this.selectedItem = game;
         break;
     }
+  }
+
+  editFirebaseItem() {
+    let id = this.selectedItem.id;
+    this.createNewToAdd();
+    switch (this.itemType) {
+      case 'movie':
+        this.movieFirebaseService.updateMovie(this.selectedItem, id).then( () => {
+          this.presentToast('Movie saved in your collection', 1000);
+        });
+        break;
+      case 'series':
+        this.seriesFirebaseService.updateSerie(this.selectedItem, id).then( response => {
+          this.presentToast('Series saved in your collection', 1000);
+        });;
+        
+        break;
+      case 'game':
+        this.gameFirebaseService.updateGame(this.selectedItem, id).then( response => {
+          this.presentToast('Game saved in your collection', 1000);
+        });;
+        break;
+    }
+    this.clearForm();
+    this.close();
   }
 
   addToFirebase() {
@@ -351,6 +405,10 @@ export class SearchPage implements OnInit {
         break;
     }
     this.clearForm();
+  }
+
+  close() {
+    this.modalController.dismiss();
   }
 
 }

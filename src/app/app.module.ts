@@ -16,6 +16,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ApisearchPageModule } from './apisearch/apisearch.module';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { SearchPageModule } from './search/search.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { environment } from 'src/environments/environment';
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     ApisearchPageModule,
+    SearchPageModule,
     HttpClientModule
   ],
   providers: [

@@ -34,23 +34,17 @@ export class SeriesFirebaseService {
     return this.series;
   }
  
-  getSerie(id: string): Observable<Series> {
-    return this.serieCollection.doc<Series>(id).valueChanges().pipe(
-      take(1),
-      map(serie => {
-        serie.id = id;
-        return serie
-      })
-    );
-  }
- 
   addSerie(serie: Series): Promise<DocumentReference> {
     return this.serieCollection.add(serie);
   }
  
-  // updateSerie(serie: Series): Promise<void> {
-  //   return this.serieCollection.doc(serie.imdbID).update({ name: serie.name, notes: serie.notes });
-  // }
+  updateState(series: Series, id): Promise<void> {
+    return this.serieCollection.doc(id).update({ fav: series.fav, seen: series.seen });
+  }
+ 
+  updateSerie(series: Series, id): Promise<void> {
+    return this.serieCollection.doc(id).update(series);
+  }
  
   deleteSerie(id: string): Promise<void> {
     return this.serieCollection.doc(id).delete();

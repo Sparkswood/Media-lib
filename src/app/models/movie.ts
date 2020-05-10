@@ -1,5 +1,4 @@
 export interface Movie {
-    id: string;
     Title: string;
     Year: string;
     Runtime: string;
@@ -10,6 +9,8 @@ export interface Movie {
     Ratings: Rating[];
     Type: string;
     UserUID: string;
+    fav: boolean;
+    seen: boolean;
 }
 
 export interface Rating {
