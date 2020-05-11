@@ -10,19 +10,19 @@ const routes: Routes = [
     children: [
       {
         path: 'movie',
-        loadChildren: '../film/film.module#FilmPageModule'
+        loadChildren: () => import('../film/film.module').then( m => m.FilmPageModule)
        },
       {
         path: 'series',
-        loadChildren: '../serial/serial.module#SerialPageModule'
+        loadChildren: () => import('../serial/serial.module').then( m => m.SerialPageModule)
       },
       {
         path: 'game',
-        loadChildren: '../game/game.module#GamePageModule'
+        loadChildren: () => import('../game/game.module').then( m => m.GamePageModule)
       },
       {
         path: 'search',
-        loadChildren: '../search/search.module#SearchPageModule'
+        loadChildren: () => import('../search/search.module').then( m => m.SearchPageModule)
       }
     ]
   }

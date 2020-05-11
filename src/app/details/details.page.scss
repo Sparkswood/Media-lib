@@ -1,0 +1,35 @@
+ion-img {
+    display: flex;
+    width: 100%;
+}
+
+.no-image-icon {
+    font-size: 300px;
+}
+
+.title {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
+}
+
+.year {
+    display: block;
+}
+
+.chips {
+    display: inline-block;
+    text-align: center;
+}
+
+.rating {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 18px;
+}
+
+ion-icon {
+    font-size: 20px;
+}

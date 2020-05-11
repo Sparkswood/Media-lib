@@ -5,6 +5,7 @@ import { Movie } from '../models/movie';
 import { AlertController, ToastController, ModalController } from '@ionic/angular';
 import { SearchPage } from '../search/search.page';
 import { SearchApiService } from '../services/search-api.service';
+import { DetailsPage } from '../details/details.page';
 
 @Component({
   selector: 'app-film',
@@ -49,6 +50,16 @@ export class FilmPage {
       }
     };
     this.router.navigate(['/menu/search'], navigationExtras);
+  }
+
+  openDetailsModal(item) {
+    this.modalController.create({component: DetailsPage}).then( modalElement => {
+      this.searchApiService.setActionType(false, item);
+      modalElement.present();
+      modalElement.onDidDismiss().then( () => {
+        this.searchApiService.setActionType(false);
+      })
+    });
   }
 
   seenChange(item, id) {

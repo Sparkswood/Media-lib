@@ -37,7 +37,7 @@
         <ion-col *ngFor="let item of itemsList">
           <ion-card>
             <ion-row>
-              <ion-col>
+              <ion-col (click)="openDetailsModal(item)">
                 <div class="poster">
                   <ion-img *ngIf="item.Poster != 'N/A' && item.Poster != 'Unknown'" [src]="item.Poster"></ion-img>
                   <ion-icon class="no-image-icon" *ngIf="item.Poster == 'N/A' || item.Poster == 'Unknown'" name="information-circle-outline"></ion-icon>
@@ -50,9 +50,11 @@
                   <ion-icon (click)="editItem(item)" name="create-outline"></ion-icon>
                   <ion-icon (click)="deleteItem(item.id)" name="trash-outline"></ion-icon>
                 </ion-label>
-                <ion-label class="title">{{item.Title}}</ion-label>
-                <ion-label class="year">Year: <b>{{item.Year}}</b></ion-label>
-                <ion-label class="plot" *ngIf="item.Plot != 'Unknown'">{{item.Plot}}</ion-label>
+                <div (click)="openDetailsModal(item)">
+                  <ion-label class="title">{{item.Title}}</ion-label>
+                  <ion-label class="year">Year: <b>{{item.Year}}</b></ion-label>
+                  <ion-label class="plot" *ngIf="item.Plot != 'Unknown'">{{item.Plot}}</ion-label>
+                </div>
               </ion-col>
             </ion-row>
           </ion-card>

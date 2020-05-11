@@ -5,6 +5,7 @@ import { GameFirebaseService } from '../services/game-firebase.service';
 import { AlertController, ToastController, ModalController } from '@ionic/angular';
 import { SearchApiService } from '../services/search-api.service';
 import { SearchPage } from '../search/search.page';
+import { DetailsPage } from '../details/details.page';
 
 @Component({
   selector: 'app-game',
@@ -49,6 +50,16 @@ export class GamePage {
       }
     };
     this.router.navigate(['/menu/search'], navigationExtras);
+  }
+
+  openDetailsModal(item) {
+    this.modalController.create({component: DetailsPage}).then( modalElement => {
+      this.searchApiService.setActionType(false, item);
+      modalElement.present();
+      modalElement.onDidDismiss().then( () => {
+        this.searchApiService.setActionType(false);
+      })
+    });
   }
 
   seenChange(item, id) {

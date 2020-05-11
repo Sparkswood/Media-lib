@@ -17,7 +17,7 @@ import { AuthenticationService } from '../shared/authentication.service';
   templateUrl: './search.page.html',
   styleUrls: ['./search.page.scss'],
 })
-export class SearchPage implements OnInit {
+export class SearchPage {
 
   itemType;
   actionType;
@@ -150,9 +150,6 @@ export class SearchPage implements OnInit {
       this.itemType = this.selectedItem.Type;
       this.fillForm();
     }
-  }
-
-  ngOnInit() {
   }
 
   ionViewWillLeave() {

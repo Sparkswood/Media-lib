@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{item.Title}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="close()" defaultHref="menu/{{itemType}}" slot="start"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col class="title">
+          <ion-img *ngIf="item.Poster != 'N/A' && item.Poster != 'Unknown'" [src]="item.Poster"></ion-img>
+          <ion-icon class="no-image-icon" *ngIf="item.Poster == 'N/A' || item.Poster == 'Unknown'" name="information-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label class="title">
+          {{item.Title}}
+          <ion-icon *ngIf="item.fav"  color="primary" name="bookmark"></ion-icon>
+          <ion-icon *ngIf="item.seen" color="primary" name="checkmark-done-outline"></ion-icon>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <div class="chips" *ngFor="let genre of genres">
+          <ion-chip color="primary">
+            <ion-label>{{genre}}</ion-label>
+          </ion-chip>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-label *ngIf="item.Type != 'series'" class="year">Director: <b>{{item.Director}}</b></ion-label>
+        <ion-label *ngIf="item.Type == 'series'" class="year">Total seasons: <b>{{item.totalSeasons}}</b></ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col [ngClass]="item.Type == 'game' ? 'ion-text-center' : ''">
+        <ion-label class="year">Year: <b>{{item.Year}}</b></ion-label>
+      </ion-col>
+      <ion-col *ngIf="item.Type != 'game'">
+        <ion-label class="year">Runtime: <b>{{item.Runtime}} min</b></ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-justify">
+        {{item.Plot}}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <rating [rate]="this.item.Ratings[0].Value/20"
+            readonly="true"
+            size="default" 
+            (rateChange)="onRateChange($event)">
+        </rating>
+      </ion-col>
+      <ion-col class="rating ion-text-center">
+        <p *ngIf="this.item.Ratings[0].Value != ''">{{this.item.Ratings[0].Value}}/100</p>
+        <p *ngIf="this.item.Ratings[0].Value == ''">Unknown</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
