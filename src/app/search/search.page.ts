@@ -305,8 +305,8 @@ export class SearchPage {
           Director: this.addForm.get('director').value,
           Year: this.addForm.get('year').value.substring(0, 4),
           Type: 'movie',
-          fav: this.selectedItem.fav ? this.selectedItem.fav : false,
-          seen: this.selectedItem.seen ? this.selectedItem.seen : false
+          fav: this.selectedItem ? (this.selectedItem.fav ? this.selectedItem.fav : false) : false,
+          seen: this.selectedItem ? (this.selectedItem.seen ? this.selectedItem.seen : false) : false
         }
         this.selectedItem = movie;
         break;
@@ -327,8 +327,8 @@ export class SearchPage {
           totalSeasons: this.totalSeasons.toString(),
           Year: `${this.addForm.get('year').value.substring(0, 4)}-${this.addForm.get('toyear').value.substring(0, 4)}`,
           Type: 'series',
-          fav: this.selectedItem.fav ? this.selectedItem.fav : false,
-          seen: this.selectedItem.seen ? this.selectedItem.seen : false
+          fav: this.selectedItem ? (this.selectedItem.fav ? this.selectedItem.fav : false) : false,
+          seen: this.selectedItem ? (this.selectedItem.seen ? this.selectedItem.seen : false) : false
         }
         this.selectedItem = series;
         break;
@@ -348,8 +348,8 @@ export class SearchPage {
           Genre: genres,
           Year: this.addForm.get('year').value.substring(0, 4),
           Type: 'game',
-          fav: this.selectedItem.fav ? this.selectedItem.fav : false,
-          seen: this.selectedItem.seen ? this.selectedItem.seen : false
+          fav: this.selectedItem ? (this.selectedItem.fav ? this.selectedItem.fav : false) : false,
+          seen: this.selectedItem ? (this.selectedItem.seen ? this.selectedItem.seen : false) : false
         }
         this.selectedItem = game;
         break;

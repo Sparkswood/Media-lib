@@ -22,16 +22,16 @@ export class RegisterPage {
       { type: 'pattern', message: 'Wrong format'}
     ],
     password: [
-      { type: 'required', message: 'Hasło jest wymagane' },
-      { type: 'minLength', message: 'Hasło musi mieć przynajmniej 8 znaków' },
+      { type: 'required', message: 'Password is required' },
+      { type: 'minLength', message: 'Password is too short' },
       {
         type: 'pattern',
-        message: 'Hasło musi posiadać min. 1 wielką literę, 1 małą literę, 1 znak specjalny, 1 cyfrę i być dłgie na min. 8 znaków '
+        message: 'Password is too weak '
       }
     ],
     confirmPassword: [
-      { type: 'required', message: 'Powtórne podanie hasła jest wymagane' },
-      { type: 'MatchPassword', message: 'Hasła muszą być takie same'}
+      { type: 'required', message: 'Confirm password is required' },
+      { type: 'MatchPassword', message: 'Passwords are different'}
     ]
   };
 
